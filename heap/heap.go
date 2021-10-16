@@ -121,7 +121,6 @@ func (n *Node) PrintPost(){
 }
 
 func (n *Node)MaxHeap(){
-	fmt.Println("\n performing MaxHeap")
 	d:=n.depth()
 	for i:=0;i<d;i++{
 		n.maxHeapify()
@@ -129,7 +128,6 @@ func (n *Node)MaxHeap(){
 }
 
 func (n *Node)MinHeap(){
-	fmt.Println("\n performing MinHeap")
 	d:=n.depth()
 	for i:=0;i<d;i++{
 		n.minHeapify()
@@ -186,11 +184,11 @@ func (n *Node)PopMax() interface{}{
 		}
 		if val.LeftNode==nil && val.RightNode==nil && len(q)==1{
 			n.Data=val.Data
-			if parent[val].LeftNode.Data==val.Data{
+			if parent[val].LeftNode==val{
 				parent[val].LeftNode=nil
 				return temp
 			}
-			if parent[val].RightNode.Data==val.Data{
+			if parent[val].RightNode==val{
 				parent[val].RightNode=nil
 				return temp
 			}
