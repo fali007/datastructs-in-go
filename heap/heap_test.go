@@ -1,12 +1,11 @@
-package main
+package heap
 
 import(
-	"datastructs.com/heap"
 	"testing"
 )
 
 func TestHeap(t *testing.T){
-	val:=heap.Heap(0)
+	val:=Heap(0)
 
 	for i:=1;i<10;i++{
 		val.Add(i)
