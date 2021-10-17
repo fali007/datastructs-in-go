@@ -15,13 +15,21 @@ func BinaryTree(t interface{})*Node{
 }
 
 func (n *Node) Print(){
+	if n==nil{
+		return
+	}
 	fmt.Printf("%v - ",n.Data)
-	if n.LeftNode!=nil{
-		n.LeftNode.Print()
+	n.LeftNode.Print()
+	n.RightNode.Print()
+}
+
+func (n *Node) PrintIn(){
+	if n==nil{
+		return
 	}
-	if n.RightNode!=nil{
-		n.RightNode.Print()
-	}
+	n.LeftNode.PrintIn()
+	fmt.Printf("%v - ",n.Data)
+	n.RightNode.PrintIn()
 }
 
 func (n *Node)Add(t interface{}){
@@ -36,10 +44,10 @@ func (n *Node)Add(t interface{}){
 	}
 	if int(t.(int))<int(temp.Data.(int)){
 		temp.LeftNode=&Node{t,nil,nil}
-		fmt.Println("Inserted",t,"as LeftNode of - ", temp.Data)
+		// fmt.Println("Inserted",t,"as LeftNode of - ", temp.Data)
 	}else{
 		temp.RightNode=&Node{t,nil,nil}
-		fmt.Println("Inserted",t,"as RightNode of - ", temp.Data)
+		// fmt.Println("Inserted",t,"as RightNode of - ", temp.Data)
 	}
 }
 
@@ -52,4 +60,51 @@ func (n *Node)Search(t interface{}) *Node{
 	}else{
 		return n.RightNode.Search(t)
 	}
+}
+
+func (n *Node) getInorder(i []interface{})[]interface{}{
+	if n==nil{
+		return i
+	}
+	i=n.LeftNode.getInorder(i)
+	i=append(i,n.Data)
+	i=n.RightNode.getInorder(i)
+	return i
+}
+
+func createTree(val []interface{}, s, e int)*Node{
+	if s>e{
+		return nil
+	}
+	mid:=(s+e)/2
+	root:=Node{val[mid],nil,nil}
+	root.LeftNode=createTree(val,s,mid-1)
+	root.RightNode=createTree(val,mid+1,e)
+	return &root
+}
+
+func (n *Node) BalanceTree()*Node{
+	var j []interface{}
+
+	fmt.Println("Depth of input tree -",n.Depth())
+
+	j=n.getInorder(j)
+	n=createTree(j,0,len(j)-1)
+
+	fmt.Println("Depth after balancing - ", n.Depth())
+	return n
+}
+
+func max(a,b int)int{
+	if a>b{
+		return a
+	}
+	return b
+}
+
+func (n *Node) Depth()int{
+	if n==nil {
+		return 0
+	}
+	return 1+max(n.LeftNode.Depth(),n.RightNode.Depth())
 }
