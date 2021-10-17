@@ -14,7 +14,7 @@ func TestBinaryTree(r *testing.T){
 	}
 	
 
-	got:=t.Depth()
+	got:=t.depth()
 	want:=12
 
 	if got!=want{
@@ -23,7 +23,7 @@ func TestBinaryTree(r *testing.T){
 
 	t=t.BalanceTree()
 
-	got=t.Depth()
+	got=t.depth()
 	want=4
 
 	if got!=want{

@@ -86,12 +86,12 @@ func createTree(val []interface{}, s, e int)*Node{
 func (n *Node) BalanceTree()*Node{
 	var j []interface{}
 
-	fmt.Println("Depth of input tree -",n.Depth())
+	fmt.Println("Depth of input tree -",n.depth())
 
 	j=n.getInorder(j)
 	n=createTree(j,0,len(j)-1)
 
-	fmt.Println("Depth after balancing - ", n.Depth())
+	fmt.Println("Depth after balancing - ", n.depth())
 	return n
 }
 
@@ -102,9 +102,9 @@ func max(a,b int)int{
 	return b
 }
 
-func (n *Node) Depth()int{
+func (n *Node) depth()int{
 	if n==nil {
 		return 0
 	}
-	return 1+max(n.LeftNode.Depth(),n.RightNode.Depth())
+	return 1+max(n.LeftNode.depth(),n.RightNode.depth())
 }
